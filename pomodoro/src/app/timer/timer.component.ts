@@ -11,16 +11,28 @@ export class TimerComponent implements OnInit {
   minutos: number;
   segundos: number;
   
-  tasks = [];
+  tarefas = [];
     
-  task: any = {};
+  item: any = '';
+  ocultarLista: boolean = true;
+  ocultarEdit: boolean = true;
 
-  addTask():void {
-    this.tasks.push(this.task);
+  aggTarefa():void {
+    this.ocultarLista = false;
+    this.tarefas.push(this.item);
+    this.item = ''
   }
 
-  editTask() {
+  editTarefa():void {
 
+  }
+
+  deletTarefa(i) {
+    //this.tarefas.splice(this.tarefas.indexOf(tarefa), 1);
+    var resposta = confirm('Deseja eliminar tarefa?');
+    if (resposta) {
+      this.tarefas.splice( i, 1)
+    }
   }
   
 
