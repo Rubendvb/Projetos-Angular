@@ -1,4 +1,6 @@
+import { BoundElementPropertyAst } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-timer',
@@ -10,9 +12,11 @@ export class TimerComponent implements OnInit {
   title: string = 'Timer';
   minutos: number;
   segundos: number;
-  
+  Paused: boolean;
+  buttonLabel: string;
+
   tarefas = [];
-    
+
   item: any = '';
   ocultarLista: boolean = true;
   ocultarEdit: boolean = true;
@@ -20,11 +24,15 @@ export class TimerComponent implements OnInit {
   aggTarefa():void {
     this.ocultarLista = false;
     this.tarefas.push(this.item);
-    this.item = ''
+    this.item = '';
   }
 
-  editTarefa():void {
+  editTarefa(): void {
 
+  }
+
+  actTarefa() {
+    
   }
 
   deletTarefa(i) {
@@ -34,28 +42,44 @@ export class TimerComponent implements OnInit {
       this.tarefas.splice( i, 1)
     }
   }
-  
+
 
   constructor() {
     this.contar();
-    setInterval(()=> this.tick(), 1000);
+    setInterval(() => this.tick(), 1000);
   }
 
   contar(): void {
-    this.minutos = 25;
+    this.minutos = 1;
     this.segundos = 0;
+    this.buttonLabel = 'Empezar';
+    this.iniciarPomo();
   }
 
 
   private tick(): void {
-    if(--this.segundos < 0) {
-      this.segundos = 59;
-      if(--this.minutos < 0) {
-        this.minutos = 24;
+    if(!this.Paused) {
+      this.buttonLabel = 'Detener';
+
+      if(--this.segundos < 0) {
         this.segundos = 59;
+        if(--this.minutos < 0) {
+          this.minutos = 24;
+          this.segundos = 59;
+        }
       }
     }
   }
+
+  iniciarPomo(): void{
+    this.Paused = !this.Paused;
+    if(this.minutos < 24 || this.segundos < 59) {
+    this.buttonLabel = this.Paused ? 'Recomeçar' : 'Detener';
+
+    }
+  }
+
+
   ngOnInit(): void {
   }
 
