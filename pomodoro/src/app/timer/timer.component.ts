@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-timer',
   templateUrl: './timer.component.html',
-  styleUrls: ['./timer.component.scss']
+  styleUrls: ['./timer.component.css']
 })
 export class TimerComponent implements OnInit {
 
@@ -18,25 +18,36 @@ export class TimerComponent implements OnInit {
   tarefas = [];
 
   item: any = '';
-  ocultarLista: boolean = true;
+  item2: any = '';
+
+  lista: any = this.tarefas;
   ocultarEdit: boolean = true;
 
   aggTarefa():void {
-    this.ocultarLista = false;
     this.tarefas.push(this.item);
     this.item = '';
   }
 
-  editTarefa(): void {
-
+  myValue;
+  editTarefa(i): void {
+    this.ocultarEdit = false;
+    this.item2 = this.tarefas[i];
+    this.myValue = i;
   }
 
-  actTarefa() {
-    
+  actTarefa(): void {
+    this.ocultarEdit = true;
+    let i = this.myValue;
+    for ( let j = 0; j < this.tarefas.length; j++) {
+      if (i == j) {
+        this.tarefas[i] = this.item2;
+        this.item2 = '';
+        console.log(this.item2.value);
+      }
+    }
   }
 
   deletTarefa(i) {
-    //this.tarefas.splice(this.tarefas.indexOf(tarefa), 1);
     var resposta = confirm('Deseja eliminar tarefa?');
     if (resposta) {
       this.tarefas.splice( i, 1)
@@ -50,7 +61,7 @@ export class TimerComponent implements OnInit {
   }
 
   contar(): void {
-    this.minutos = 1;
+    this.minutos = 25;
     this.segundos = 0;
     this.buttonLabel = 'Empezar';
     this.iniciarPomo();
