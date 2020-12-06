@@ -1,0 +1,40 @@
+img {
+    width: 219px;
+    height: 219px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    box-shadow: 5px 5px 5px blue;
+    border-radius: 20px;
+}
+
+.pesquisa h2{
+    font-size: 65px;
+    color: ghostwhite;
+    text-shadow: 4px 3px 1px black;
+}
+
+.pesquisa {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.pesquisa button {
+    background: rgb(102, 255, 102);
+    border: none;
+    box-shadow: 2px 2px 15px gray;
+    height: 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.pesquisa button:hover {
+    background-color: rgb(102, 255, 10);
+}
+
+.padding {
+    padding: 0;
+    max-width: 1290px;
+}
