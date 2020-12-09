@@ -12,8 +12,11 @@ export class TimerComponent implements OnInit {
   title: string = 'Timer';
   minutos: number;
   segundos: number;
-  Paused: boolean;
+  Paused: boolean = true;
+  vezes: number = 0;
+
   buttonLabel: string;
+  relogio: any;
 
   tarefas = [];
 
@@ -24,9 +27,15 @@ export class TimerComponent implements OnInit {
   ocultarEdit: boolean = true;
 
   aggTarefa():void {
+    if (this.vezes % 4 === 0) {
+      this.minutos = 25
+      this.segundos = 0
+    }
+
     this.tarefas.push(this.item);
     this.item = '';
   }
+
 
   myValue;
   editTarefa(i): void {
@@ -57,18 +66,21 @@ export class TimerComponent implements OnInit {
 
   constructor() {
     this.contar();
-    setInterval(() => this.tick(), 1000);
+    setInterval(() => this.tick(), 10);
   }
 
   contar(): void {
     this.minutos = 25;
     this.segundos = 0;
     this.buttonLabel = 'Empezar';
-    this.iniciarPomo();
   }
 
 
   private tick(): void {
+    if(this.minutos < 24 || this.segundos <59) {
+      this.buttonLabel = this.Paused ? 'Recomeçar' : 'Detener';
+    }
+
     if(!this.Paused) {
       this.buttonLabel = 'Detener';
 
@@ -84,14 +96,22 @@ export class TimerComponent implements OnInit {
 
   iniciarPomo(): void{
     this.Paused = !this.Paused;
-    if(this.minutos < 24 || this.segundos < 59) {
-    this.buttonLabel = this.Paused ? 'Recomeçar' : 'Detener';
 
+    if (!this.Paused && this.relogio === undefined) {
+      this.relogio = setInterval(() => this.tick(), 1000);
     }
   }
 
 
   ngOnInit(): void {
+    this.minutos = 25;
+    this.segundos = 0;
+    this.buttonLabel = 'Empezar';
   }
 
 }
+
+
+    // if (!this.Paused && this.relogio === undefined) {
+    //   this.relogio = setInterval(() => this.tick(), 1000);
+    // }
