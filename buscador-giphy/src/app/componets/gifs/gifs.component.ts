@@ -18,7 +18,7 @@ export class GifsComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.q = params['q'];
 
-      this.gifService.getGifs(this.q).subscribe(gifs =>{
+      this.gifService.getGifs(this.q).subscribe(gifs => {
         console.log(gifs);
         this.gifs = gifs;
       });
